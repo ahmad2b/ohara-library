@@ -24,12 +24,12 @@ const SingleBookFrame = (
       </div>
 
       <div className="flex m-2   justify-start text-sm">
-        <Link href={`/book-details/${bookId}`} prefetch={false}>
+        <Link href={`/book-details/${bookId}`}>
           <button className="bg-gradient-to-tr from-neutral-700 to-neutral-700 text-white font-bold py-1 px-4 mr-2 rounded">
             Book Details
           </button>
         </Link>
-        <Link href={`/order`} prefetch={false}>
+        <Link href={`/order/${bookId}`}>
           <button className="bg-gradient-to-tr from-neutral-700 to-neutral-700 text-white font-bold py-1 px-4  rounded">
             Order Book
           </button>

@@ -1,29 +1,27 @@
 import Link from "next/link";
+import { SiStatuspal } from "react-icons/si";
+import { BsBookshelf } from "react-icons/bs";
+import { FaScroll } from "react-icons/fa";
+
+const MenuItem = ({ href, itemName }: { href: string; itemName: string }) => {
+  return (
+    <div>
+      <Link href={href}>{itemName}</Link>
+    </div>
+  );
+};
 
 const Header = () => {
   return (
     <div className="flex justify-between p-4 border-b-2">
-      <Link href={`/api-status`} prefetch={false}>
-        API Status
-      </Link>
-      <Link href={`/`} prefetch={false}>
-        Books List
-      </Link>
-      {/* <Link href={`/single-book`} prefetch={false}>
-        Single Book
-      </Link> */}
-      {/* <Link href={`/`} prefetch={false}>
-        Order a Book
-      </Link>
-      <Link href={`/`} prefetch={false}>
-        Single Order Details
-      </Link>
-      <Link href={`/all-orders`} prefetch={false}>
-        All Order Details
-      </Link> */}
-      <Link href={`/api-auth`} prefetch={false}>
-        Register
-      </Link>
+      <MenuItem href="/" itemName="Home" />
+      <MenuItem href="/" itemName="Books List" />
+      {/* <MenuItem href="/book-details" itemName="Single Book" /> */}
+      <MenuItem href="/order" itemName="Order" />
+      <MenuItem href="/all-orders" itemName="All Orders" />
+      <MenuItem href="/single-order" itemName="Single Order" />
+      <MenuItem href="/api-status" itemName="API Status" />
+      <MenuItem href="/register" itemName="Register" />
     </div>
   );
 };

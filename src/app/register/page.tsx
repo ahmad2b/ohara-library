@@ -21,13 +21,16 @@ const page = () => {
       }),
     });
     const data = await response.json();
+
     if (data.accessToken) {
       setResult(data.accessToken);
       localStorage.setItem("USER_TOKEN", data.accessToken);
+      localStorage.setItem("USER_NAME", userName);
       setShowResult(true);
-      setTimeout(() => {
-        router.back();
-      }, 2000);
+
+      // setTimeout(() => {
+      //   router.back();
+      // }, 2000);
     }
   };
 

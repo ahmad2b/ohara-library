@@ -1,6 +1,34 @@
 "use client";
 import React, { useState } from "react";
-import BooksListSection from "@/components/BooksListSection";
+import useSWR from "swr";
+
+const fetcher = async ({
+  url,
+  bookId,
+  customerName,
+  USER_TOKEN,
+}: {
+  url: string;
+  bookId: string;
+  customerName: string;
+  USER_TOKEN: string;
+}) => {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${USER_TOKEN}`,
+    },
+    body: JSON.stringify({
+      bookId,
+      customerName,
+    }),
+  });
+
+  const data = await response.json();
+
+  return data;
+};
 
 const page = () => {
   const [bookId, setBookId] = useState("");
@@ -8,20 +36,17 @@ const page = () => {
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState("");
 
+  const isClient = typeof window !== "undefined";
+  const USER_TOKEN = isClient ? localStorage.getItem("USER_TOKEN") : null;
+
+  const { data, error } = useSWR(
+    { url: `/api/orders/`, bookId, customerName, USER_TOKEN },
+    fetcher
+  );
+
+  if (error) return <div>Error: {error.message}</div>;
+
   const orderBook = async () => {
-    const response = await fetch("/api/orders/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${localStorage.getItem("USER_TOKEN")}`,
-      },
-      body: JSON.stringify({
-        bookId,
-        customerName,
-        USER_TOKEN: localStorage.getItem("USER_TOKEN"),
-      }),
-    });
-    const data = await response.json();
     if (data.orderId) {
       console.log("Data", data);
 
@@ -81,7 +106,6 @@ const page = () => {
           </div>
         )}
       </div>
-      <div>{/* <BooksListSection /> */}</div>
     </div>
   );
 };

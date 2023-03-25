@@ -63,7 +63,7 @@ export const SingleBooksDetails = ({
             </Link>
           </div>
           <div>
-            <Link href={`/order`} prefetch={false}>
+            <Link href={`/order/${id}`} prefetch={false}>
               <button className="bg-gradient-to-tr from-neutral-700 to-neutral-700 text-white font-bold py-2 px-6 rounded">
                 Order Book
               </button>

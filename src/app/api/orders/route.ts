@@ -3,13 +3,20 @@ import { baseUrl } from "@/lib/data";
 
 export async function POST(request: Request) {
   const data = await request.json();
-  const { bookId, customerName, USER_TOKEN } = data;
+
+  const USER_TOKEN = request.headers.get("Authorization");
+
+  const { bookId, customerName } = data;
+
+  console.log("Server Side Token", USER_TOKEN);
+  console.log("Server Side Book ID", bookId);
+  console.log("Server Side Customer Name", customerName);
 
   const response = await fetch(`${baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${USER_TOKEN}`,
+      Authorization: `${USER_TOKEN}`,
     },
     body: JSON.stringify({
       bookId,
