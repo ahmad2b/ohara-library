@@ -11,8 +11,8 @@ const Header = () => {
       </Link>
       {/* <Link href={`/single-book`} prefetch={false}>
         Single Book
-      </Link>
-      <Link href={`/`} prefetch={false}>
+      </Link> */}
+      {/* <Link href={`/`} prefetch={false}>
         Order a Book
       </Link>
       <Link href={`/`} prefetch={false}>

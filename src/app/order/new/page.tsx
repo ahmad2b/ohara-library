@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import BooksListSection from "@/components/BooksListSection";
 
 const page = () => {
   const [bookId, setBookId] = useState("");
@@ -80,6 +81,7 @@ const page = () => {
           </div>
         )}
       </div>
+      <div>{/* <BooksListSection /> */}</div>
     </div>
   );
 };

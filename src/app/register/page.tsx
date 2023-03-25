@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState("");
+  const router = useRouter();
 
   const getUserToken = async () => {
     const response = await fetch("/api/authentication/", {
@@ -23,6 +25,9 @@ const page = () => {
       setResult(data.accessToken);
       localStorage.setItem("USER_TOKEN", data.accessToken);
       setShowResult(true);
+      setTimeout(() => {
+        router.back();
+      }, 2000);
     }
   };
 
