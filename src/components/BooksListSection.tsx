@@ -1,4 +1,3 @@
-// import SingleBookFrame from "@/components/SingleBookFrame";
 import { baseUrl } from "@/lib/data";
 import Link from "next/link";
 
@@ -23,19 +22,6 @@ const SingleBookFrame = (
           <strong>Available:</strong> {bookAvailable ? "Yes" : "No"}
         </p>
       </div>
-
-      {/* <div className="flex m-2   justify-start text-sm">
-        <Link href={`/book-details/${bookId}`} prefetch={false}>
-          <button className="bg-gradient-to-tr from-neutral-700 to-neutral-700 text-white font-bold py-1 px-4 mr-2 rounded">
-            Book Details
-          </button>
-        </Link>
-        <Link href={`/order`} prefetch={false}>
-          <button className="bg-gradient-to-tr from-neutral-700 to-neutral-700 text-white font-bold py-1 px-4  rounded">
-            Order Book
-          </button>
-        </Link>
-      </div> */}
     </div>
   );
 };

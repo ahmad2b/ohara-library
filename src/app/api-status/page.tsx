@@ -1,4 +1,3 @@
-import React from "react";
 import { baseUrl } from "@/lib/data";
 
 const page = async () => {

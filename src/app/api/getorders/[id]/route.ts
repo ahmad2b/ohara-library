@@ -8,8 +8,6 @@ export async function GET(
   const { id } = params;
   const token = request.headers.get("Authorization");
 
-  console.log("Server Side Token", token);
-
   const response = await fetch(`${baseUrl}/orders/${id}`, {
     method: "GET",
     headers: {

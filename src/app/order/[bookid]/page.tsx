@@ -23,6 +23,7 @@ const fetcher = async ({
       bookId,
       customerName,
     }),
+    cache: "no-store",
   });
 
   const data = await response.json();
@@ -30,7 +31,7 @@ const fetcher = async ({
   return data.orderId;
 };
 
-const page = ({ params }: { params: { bookid: string } }) => {
+const OrderViaID = ({ params }: { params: { bookid: string } }) => {
   const bookId = params.bookid;
 
   const isClient = typeof window !== "undefined";
@@ -45,15 +46,6 @@ const page = ({ params }: { params: { bookid: string } }) => {
     fetcher
   );
 
-  console.log("ID", bookId);
-  console.log("token", USER_TOKEN);
-  console.log("customerName", customerName);
-
-  console.log("data", data);
-
-  if (error) return <div>Error: {error.message}</div>;
-  // if (!data) return <div>Loading...</div>;
-
   useEffect(() => {
     if (data) {
       setResult(data);
@@ -61,6 +53,8 @@ const page = ({ params }: { params: { bookid: string } }) => {
     }
   }, [data]);
 
+  if (error) return <div>Error: {error.message}</div>;
+  // if (!data) return <div>Loading...</div>;
   return (
     <div className=" flex flex-col  mt-12 space-y-4 max-w-2xl w-full mx-auto">
       <div className="text-center">
@@ -80,4 +74,4 @@ const page = ({ params }: { params: { bookid: string } }) => {
   );
 };
 
-export default page;
+export default OrderViaID;

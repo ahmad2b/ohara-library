@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
 import { baseUrl } from "@/lib/data";
 
 export async function DELETE(
@@ -20,9 +20,10 @@ export async function DELETE(
     throw new Error("Failed to delete order");
   }
 
-  if (response.status === 204) {
-    return NextResponse.json(204);
-  }
+  // if (response.status === 204) {
+  //   return NextResponse.json({ Result: "Order deleted" });
+  // }
 
-  return NextResponse.json(response);
+  // return NextResponse.json({ Result: response.statusText });
+  return new Response(null, { status: 204 });
 }

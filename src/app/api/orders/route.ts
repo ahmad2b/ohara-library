@@ -3,14 +3,9 @@ import { baseUrl } from "@/lib/data";
 
 export async function POST(request: Request) {
   const data = await request.json();
-
   const USER_TOKEN = request.headers.get("Authorization");
 
   const { bookId, customerName } = data;
-
-  console.log("Server Side Token", USER_TOKEN);
-  console.log("Server Side Book ID", bookId);
-  console.log("Server Side Customer Name", customerName);
 
   const response = await fetch(`${baseUrl}/orders`, {
     method: "POST",

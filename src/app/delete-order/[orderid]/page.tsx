@@ -1,28 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import useSWR from "swr";
 
-const fetcher = async ({
-  url,
-  token,
-  customerName,
-}: {
-  url: string;
-  token: any;
-  customerName: string;
-}) => {
-  const reponse = await fetch(url, {
-    method: "PATCH",
+const fetcher = async ({ url, token }: { url: string; token: any }) => {
+  const response = await fetch(url, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      customerName,
-    }),
   });
 
-  const data = await reponse.json();
+  if (response.status === 204) {
+    console.log("Order deleted successfully");
+    return { message: "Order deleted successfully" };
+  }
+
+  const data = await response.json();
   return data;
 };
 
@@ -34,82 +28,43 @@ const getToken = () => {
   return null;
 };
 
-const page = () => {
+const DeleteOrderViaID = ({ params }: { params: { orderid: string } }) => {
   const token = getToken();
-  const [orderId, setOrderId] = useState("");
-  const [customerName, setcustomerName] = useState("");
-  const [showResult, setShowResult] = useState(false);
-  const [result, setResult] = useState("");
-  const [callSWR, setCallSWR] = useState(false);
+
+  console.log(params.orderid);
 
   const { data, error } = useSWR(
-    callSWR ? { url: `/api/update/${orderId}`, token, customerName } : null,
+    { url: `/api/delete/${params.orderid}`, token },
     fetcher
   );
 
   if (error) return <div>Error: {error.message}</div>;
-  //   if (!data) return <div>Loading...</div>;
+  if (!data) return <div>Loading...</div>;
 
-  const updateOrder = async () => {
-    setCallSWR(true);
-    console.log("SWR call true");
-  };
+  console.log("Data", data);
 
   return (
     <div className=" flex flex-col  mt-12 space-y-4 max-w-2xl w-full mx-auto">
       <div className="text-center">
-        <h2 className="text-3xl font-semibold">Update a Order</h2>
-        <p className="text-lg mt-2">
-          Enter the new name and Order Id to Update it
-        </p>
+        <h2 className="text-3xl font-semibold">
+          Any Heading for the direct order delete page
+        </h2>
+        <p className="text-lg mt-2">Any Sub Heading</p>
       </div>
-      <div className="w-4/6 mx-auto">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            updateOrder();
-          }}
-          className="flex flex-col "
-        >
-          <label htmlFor="name">New Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder={"Enter New Name to Update"}
-            value={customerName}
-            onChange={(e) => setcustomerName(e.target.value)}
-            className="border border-white rounded-md py-2 px-2 text-gray-800"
-          />
 
-          <label htmlFor="email">Book ID</label>
-          <input
-            type="text"
-            name="email"
-            placeholder={"Enter the Book ID"}
-            value={orderId}
-            onChange={(e) => setOrderId(e.target.value)}
-            className="border border-white rounded-md py-2 px-2 text-gray-800"
-          />
-
-          <button
-            type="submit"
-            className="w-2/4 py-1 px-3 rounded-md mx-auto mt-4 bg-neutral-700 border border-white"
-          >
-            Update the Name
-          </button>
-        </form>
-      </div>
       <div className="w-full mx-auto text-center">
-        {showResult && (
+        {
           <div>
-            <p>Your Order has been successfuly created</p>
-            <br />
-            <p>Your Order ID is:{result}</p>
+            <p>
+              {data
+                ? "Order Deleted Successfully"
+                : "Error Deleting Order ${error.text}"}
+            </p>
           </div>
-        )}
+        }
       </div>
     </div>
   );
 };
 
-export default page;
+export default DeleteOrderViaID;

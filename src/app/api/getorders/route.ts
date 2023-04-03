@@ -4,8 +4,6 @@ import { baseUrl } from "@/lib/data";
 export async function GET(request: Request) {
   const token = request.headers.get("Authorization");
 
-  // console.log("Server Side Token", token);
-
   const response = await fetch(`${baseUrl}/orders`, {
     method: "GET",
     headers: {

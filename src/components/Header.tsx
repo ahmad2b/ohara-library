@@ -13,14 +13,15 @@ const MenuItem = ({ href, itemName }: { href: string; itemName: string }) => {
 
 const Header = () => {
   return (
-    <div className="flex justify-between p-4 border-b-2">
+    <div className="flex justify-between p-4 border-b">
+      <MenuItem href="/api-status" itemName="Status" />
       <MenuItem href="/" itemName="Home" />
-      <MenuItem href="/" itemName="Books List" />
-      {/* <MenuItem href="/book-details" itemName="Single Book" /> */}
-      <MenuItem href="/order" itemName="Order" />
+      <MenuItem href="/book-details" itemName="Single Book" />
+      {/* <MenuItem href="/" itemName="Books List" /> */}
+      <MenuItem href="/order/new" itemName="Order" />
       <MenuItem href="/all-orders" itemName="All Orders" />
       <MenuItem href="/single-order" itemName="Single Order" />
-      <MenuItem href="/api-status" itemName="API Status" />
+      <MenuItem href="/delete-order" itemName="Delete" />
       <MenuItem href="/register" itemName="Register" />
     </div>
   );

@@ -17,6 +17,10 @@ export async function POST(request: Request) {
     }),
   });
 
+  if (!response.ok) {
+    throw new Error(`Failed to create API client: ${response.statusText}`);
+  }
+
   const responseData = await response.json();
 
   return NextResponse.json(responseData);
